@@ -1,0 +1,21 @@
+{
+  "port": 3000,
+  "services": {
+    "local": {
+      "url": "http://localhost:3000",
+      "timeout": 5000
+    },
+    "rovodev": {
+      "url": "http://rovodev-service.example.com",
+      "timeout": 30000
+    },
+    "gemini": {
+      "url": "http://gemini-service.example.com",
+      "timeout": 30000
+    }
+  },
+  "logging": {
+    "level": "info",
+    "file": "mcp-server.log"
+  }
+}
