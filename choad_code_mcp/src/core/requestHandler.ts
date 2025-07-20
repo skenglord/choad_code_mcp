@@ -1,4 +1,5 @@
 import { RequestHandler } from './types';
+import { routeQuery } from './modelRouter';
 
 const localProcessing = (query: string): string | null => {
   if (query.toLowerCase().includes('hello')) {
@@ -19,6 +20,10 @@ export const multiModelQueryHandler: RequestHandler = (req, res) => {
     return res.json({ response: localResponse });
   }
 
-  // TODO: Implement model routing and response handling
+  const routedTool = routeQuery(query);
+  if (routedTool) {
+    return res.json({ tool: routedTool });
+  }
+
   res.json({ response: `You queried: ${query}` });
 };

@@ -56,13 +56,59 @@ describe('MCP Server', () => {
             });
         });
 
-        it('should handle a more complex query by returning the query', async () => {
+        it('should route a general knowledge query to the general knowledge model', async () => {
             const response = await request(app)
                 .post('/multi_model_query')
                 .send({ query: 'What is the capital of France?' });
             expect(response.status).toBe(200);
             expect(response.body).toEqual({
-                response: 'You queried: What is the capital of France?',
+                tool: {
+                    name: 'general_knowledge_query',
+                    description: 'Queries a general knowledge model.',
+                    inputSchema: {
+                        type: 'object',
+                        properties: {
+                            query: {
+                                type: 'string',
+                                description: 'The query to send to the model.',
+                            },
+                        },
+                        required: ['query'],
+                    },
+                },
+            });
+        });
+
+        it('should route a code generation query to the code generation model', async () => {
+            const response = await request(app)
+                .post('/multi_model_query')
+                .send({ query: 'generate a function to calculate the factorial of a number' });
+            expect(response.status).toBe(200);
+            expect(response.body).toEqual({
+                tool: {
+                    name: 'code_generation_query',
+                    description: 'Generates code based on a query.',
+                    inputSchema: {
+                        type: 'object',
+                        properties: {
+                            query: {
+                                type: 'string',
+                                description: 'The query to send to the model.',
+                            },
+                        },
+                        required: ['query'],
+                    },
+                },
+            });
+        });
+
+        it('should return the query if no model matches', async () => {
+            const response = await request(app)
+                .post('/multi_model_query')
+                .send({ query: 'I want to order a pizza' });
+            expect(response.status).toBe(200);
+            expect(response.body).toEqual({
+                response: 'You queried: I want to order a pizza',
             });
         });
 
