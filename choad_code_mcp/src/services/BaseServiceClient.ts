@@ -4,6 +4,8 @@ export interface ServiceClient {
 }
 
 export abstract class BaseServiceClient implements ServiceClient {
+  constructor(protected serviceName: string) {}
+
   abstract query(query: string, context?: any): Promise<any>;
   abstract healthCheck(): Promise<{ status: string }>;
 }
