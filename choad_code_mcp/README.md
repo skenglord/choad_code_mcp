@@ -1,83 +1,42 @@
-# MCP Server
+# Choad Code MCP
 
-This is a Multi-Model MCP Server that intelligently routes queries to different backend services like Rovodev, Gemini, and local processing.
+Choad Code MCP is a multi-model routing and response generation engine. It is designed to be a flexible and extensible platform for building and deploying AI-powered applications.
 
 ## Installation
+
+To install Choad Code MCP, you will need to have Node.js and npm installed on your system. Once you have these prerequisites, you can install the project by running the following command:
 
 ```bash
 npm install
 ```
 
-## Configuration
+## Usage
 
-The server uses the `config` library for configuration. You can create `config/local.json` to override the default settings.
-
-**Default Configuration (`config/default.json`):**
-
-```json
-{
-  "port": 3000,
-  "services": {
-    "local": {
-      "url": "http://localhost:3000",
-      "timeout": 5000
-    },
-    "rovodev": {
-      "url": "http://rovodev-service.example.com",
-      "timeout": 30000
-    },
-    "gemini": {
-      "url": "http://gemini-service.example.com",
-      "timeout": 30000
-    }
-  },
-  "logging": {
-    "level": "info",
-    "file": "mcp-server.log"
-  }
-}
-```
-
-## Running the Server
-
-### Development
+To start the Choad Code MCP server, run the following command:
 
 ```bash
-npm run build
 npm start
 ```
 
-### Production
+This will start the server on port 3000. You can then send requests to the server to generate responses from the configured models.
 
-For production, it is recommended to use PM2.
+## API
 
-```bash
-npm install -g pm2
-npm run build
-pm2 start ecosystem.config.js --env production
-```
+The Choad Code MCP server exposes the following API endpoints:
 
-## API Endpoints
+* `POST /api/v1/generate`: This endpoint generates a response from the configured models. The request body should be a JSON object with the following properties:
 
-### `GET /tools`
+    * `model`: The name of the model to use for generating the response.
+    * `prompt`: The prompt to use for generating the response.
 
-Returns the list of available tools.
+The response will be a JSON object with the following properties:
 
-### `POST /multi_model_query`
+* `response`: The generated response.
 
-Handles a multi-model query.
+## Contributing
 
-**Request Body:**
+Contributions to Choad Code MCP are welcome. If you would like to contribute, please fork the repository and submit a pull request.
 
-```json
-{
-  "query": "Your query string",
-  "context": {
-    "key": "value"
-  }
-}
-```
+## License
 
-### `GET /health`
-
-Returns the health status of the server and its downstream services.
+Choad Code MCP is licensed under the MIT License.
