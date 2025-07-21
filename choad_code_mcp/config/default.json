@@ -17,5 +17,36 @@
   "logging": {
     "level": "info",
     "file": "mcp-server.log"
+  },
+  "routing": {
+    "optimal": true,
+    "dynamicSwitching": {
+      "enabled": true,
+      "tokenThresholds": {
+        "low": 2048,
+        "medium": 8192
+      },
+      "complexityThresholds": {
+        "low": 0.3,
+        "medium": 0.7
+      }
+    },
+    "routes": {
+      "default": "rovodev",
+      "code": "gemini",
+      "debug": "gemini",
+      "plan": "rovodev"
+    },
+    "scenarios": {
+      "low": {
+        "model": "local"
+      },
+      "medium": {
+        "model": "rovodev"
+      },
+      "high": {
+        "model": "gemini"
+      }
+    }
   }
 }
